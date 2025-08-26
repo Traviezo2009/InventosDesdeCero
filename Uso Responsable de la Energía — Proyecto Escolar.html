@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)file:///C:/Users/pfmin/OneDrive/Escritorio/TrabajoFisica.html/energias7.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Uso Responsable de la Energía — Proyecto Escolar</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    /* -------------------- Reset y base -------------------- */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #f6fff5 0%, #eef9f2 100%);
+      color: #123; 
+      -webkit-font-smoothing:antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* -------------------- Encabezado -------------------- */
+    header {
+      background: linear-gradient(90deg,#2bb673,#1e8f5a);
+      color: white;
+      padding: 36px 20px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(20,90,50,0.12);
+    }
+    header h1 { margin: 0 0 6px; font-size: 2.4rem; letter-spacing: -0.5px; }
+    header p { margin: 0; opacity: 0.95; }
+
+    /* -------------------- Nav compacta -------------------- */
+    nav {
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .btn-nav {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:600;
+      transition: all .18s ease;
+      backdrop-filter: blur(4px);
+    }
+    .btn-nav:hover { transform: translateY(-3px); background: rgba(255,255,255,0.18); }
+
+    /* -------------------- Contenedor principal -------------------- */
+    .container {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 18px 60px;
+    }
+    section { margin-bottom: 36px; background: transparent; }
+
+    /* -------------------- Hero info y panel lateral -------------------- */
+    .hero {
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap: 22px;
+      align-items: start;
+    }
+    @media (max-width:940px){ .hero { grid-template-columns: 1fr; } }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 22px rgba(17,34,17,0.06);
+    }
+
+    .intro h2 { color:#13764a; margin-top: 6px; }
+    .intro p { line-height:1.6; margin-bottom:8px; }
+
+    /* -------------------- Tarjetas consejos (grid) -------------------- */
+    .grid-4 {
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .tip {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      padding:16px;
+      border-radius:12px;
+      transition: transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s;
+      cursor:default;
+      background: linear-gradient(180deg,#ffffff,#f7fff8);
+    }
+    .tip:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 18px 40px rgba(14,60,33,0.08); }
+    .tip img{ width:66px; height:66px; margin-bottom:10px; }
+
+    /* -------------------- Sección de energías renovables con interacciones -------------------- */
+    .renewables {
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:18px;
+      align-items:start;
+    }
+    @media (max-width:940px){ .renewables { grid-template-columns: 1fr; } }
+
+    .renew-list { display:flex; flex-direction:column; gap:12px; }
+    .renew-item {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      padding:12px;
+      border-radius:10px;
+      background:linear-gradient(180deg,#ffffff,#f5fff6);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .renew-item:hover{ transform: translateX(6px); box-shadow: 0 14px 30px rgba(10,80,40,0.06); }
+    .renew-item img { width:64px; height:64px; object-fit:contain; }
+
+    /* -------------------- Torre eólica animada -------------------- */
+    .turbine-wrap {
+      display:flex; flex-direction:column; align-items:center; gap:10px;
+      padding:12px; border-radius:12px;
+      background: linear-gradient(180deg,#fefefe,#f2fff6);
+    }
+    .turbine {
+      width:220px; height:220px; display:grid; place-items:center;
+      position:relative;
+      transition: transform .25s;
+    }
+    .turbine img { width:160px; height:160px; user-select:none; pointer-events:none; }
+    /* clase .spin aplicará rotación a la pala */
+    .blade {
+      position:absolute; width:160px; height:160px; display:grid; place-items:center;
+    }
+    .blade img { transform-origin:50% 50%; }
+
+    /* animación CSS (usada cuando la clase 'spinning' está activada) */
+    .spinning .blade img {
+      animation: spin 1.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .turbine-controls { display:flex; gap:8px; }
+    .small-btn {
+      background:#2bb673; color:white; border:none; padding:8px 10px; border-radius:8px;
+      cursor:pointer; font-weight:600; transition: background .18s;
+    }
+    .small-btn:hover { background:#1e8f5a; }
+
+    /* -------------------- Quiz y contador interactivo -------------------- */
+    .row { display:flex; gap:12px; align-items:flex-start; }
+    @media (max-width:900px) { .row { flex-direction:column; } }
+    .quiz { flex:1; }
+    .counter { width:220px; min-height:120px; padding:18px; text-align:center; }
+    .counter .value { font-size:2.2rem; font-weight:800; color:#0d7a45; }
+
+    .answer-btn {
+      display:block;
+      margin:8px 0;
+      padding:10px 12px;
+      border-radius:10px;
+      background:#fff;
+      border:1px solid #e6efe8;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s;
+      text-align:left;
+    }
+    .answer-btn:hover { transform: translateX(6px); background:#f6fff8; }
+
+    /* -------------------- Footer -------------------- */
+    footer {
+      background:#0f5a34;
+      color:white;
+      padding:20px;
+      text-align:center;
+      border-top-left-radius:16px;
+      border-top-right-radius:16px;
+      margin-top:18px;
+    }
+
+    /* -------------------- FAQs (acordeón) -------------------- */
+    .faq-item { margin-bottom:10px; border-radius:10px; overflow:hidden; }
+    .faq-btn {
+      width:100%;
+      text-align:left;
+      padding:12px;
+      background:linear-gradient(90deg,#fff,#f4fff7);
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .faq-body { padding:12px 14px; background:white; display:none; line-height:1.5; }
+
+    /* badges, small helpers */
+    .badge { background:#e8fff0; color:#0c7a49; padding:6px 8px; border-radius:999px; font-weight:700; font-size:.85rem; }
+
+    /* pequeños detalles */
+    ul { padding-left:18px; }
+    h3 { margin:6px 0; color:#0d7a45; }
+    p.small { font-size:.95rem; color:#334; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Uso Responsable de la Energía</h1>
+    <p>Proyecto completo — ideas, datos, interacciones y actividades para la escuela</p>
+    <nav>
+      <a class="btn-nav" href="file:///C:/Users/pfmin/OneDrive/Escritorio/TrabajoFisica.html/energias7.html#importancia">Importancia</a>
+      <a class="btn-nav" href="file:///C:/Users/pfmin/OneDrive/Escritorio/TrabajoFisica.html/energias7.html#renovables">Energías</a>
+      <a class="btn-nav" href="file:///C:/Users/pfmin/OneDrive/Escritorio/TrabajoFisica.html/energias7.html#consejos">Consejos</a>
+      <a class="btn-nav" href="file:///C:/Users/pfmin/OneDrive/Escritorio/TrabajoFisica.html/energias7.html#quiz">Quiz</a>
+      <a class="btn-nav" href="file:///C:/Users/pfmin/OneDrive/Escritorio/TrabajoFisica.html/energias7.html#proyectos">Proyectos</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- -------------------- IMPORTANCIA -------------------- -->
+    <section id="importancia" class="card intro">
+      <h2>¿Por qué es importante usar la energía responsablemente?</h2>
+      <p>
+        El uso responsable de la energía reduce la contaminación, ayuda a frenar el cambio climático,
+        prolonga la vida de los recursos y ahorra dinero en los hogares. Pequeñas acciones diarias
+        tienen un gran impacto cuando muchas personas las aplican.
+      </p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;">
+        <div style="flex:1;min-width:240px;">
+          <h3>¿Qué podemos cambiar?</h3>
+          <ul>
+            <li>Evitar el consumo innecesario: luces y dispositivos apagados cuando no se usan.</li>
+            <li>Cambiar a tecnologías eficientes: bombillas LED, electrodomésticos con buena etiqueta energética.</li>
+            <li>Apostar por fuentes renovables cuando sea posible: solar, eólica, etc.</li>
+          </ul>
+        </div>
+        <div style="width:320px;">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/Planting-tree.jpg" alt="Manos plantando un árbol" style="width:100%;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.08)">
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------- RENOVABLES + INTERACTIVO -------------------- -->
+    <section id="renovables" class="renewables">
+      <div class="card">
+        <h2>Energías renovables — qué son y ejemplos</h2>
+        <p class="small">
+          Las energías renovables provienen de fuentes que no se agotan en escalas humanas de tiempo y
+          suelen tener menor impacto ambiental. Aquí tenés varios tipos y cómo funcionan, con imágenes y
+          botones interactivos.
+        </p>
+
+        <div class="renew-list" aria-live="polite">
+          <div class="renew-item">
+            <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/512px-Wind_turbine_icon.svg.png" alt="Eólica">
+            <div>
+              <strong>Energía eólica</strong>
+              <p class="small">La fuerza del viento mueve turbinas que generan electricidad sin quemar combustibles.</p>
+            </div>
+          </div>
+
+          <div class="renew-item">
+            <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/512px-Solar_panel_icon.svg.png" alt="Solar">
+            <div>
+              <strong>Energía solar</strong>
+              <p class="small">Los paneles convierten la luz del sol en electricidad o calor para uso doméstico.</p>
+            </div>
+          </div>
+
+          <div class="renew-item">
+            <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/512px-Hydropower_icon.svg.png" alt="Hidráulica">
+            <div>
+              <strong>Energía hidráulica</strong>
+              <p class="small">El agua en movimiento (ríos, presas) impulsa turbinas para generar energía.</p>
+            </div>
+          </div>
+
+          <div class="renew-item">
+            <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/512px-Biomass_icon.svg.png" alt="Biomasa">
+            <div>
+              <strong>Biomasa</strong>
+              <p class="small">Materia orgánica (residuos agrícolas, madera) que puede usarse como energía de forma controlada.</p>
+            </div>
+          </div>
+        </div>
+
+        <hr style="margin:16px 0; border:none; border-top:1px solid #eef7ee;">
+
+        <h3>Interacción destacada: turbina eólica</h3>
+        <p class="small">Hacé clic en la turbina para que las palas empiecen a girar. Podés cambiar la velocidad con botones.</p>
+        <div style="margin-top:10px;">
+          <div class="turbine-wrap card" style="padding:14px;">
+            <div id="turbine" class="turbine spinning" title="Haz clic para encender/apagar">
+              <!-- base de la turbina (imagen estática) -->
+              <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/800px-Turbine_icon_tower.svg.png" alt="Torre eólica" style="width:160px;height:160px;opacity:.95">
+              <!-- capa con palas (girarán con CSS) -->
+              <div class="blade">
+                <img id="bladeImg" src="./Uso Responsable de la Energía — Proyecto Escolar_files/800px-Turbine_blade_icon.svg.png" alt="Palas de turbina" style="width: 160px; height: 160px; opacity: 0.95; animation-duration: 1.6s;">
+              </div>
+            </div>
+
+            <div class="turbine-controls" style="margin-top:6px;">
+              <button id="toggleSpin" class="small-btn">Apagar</button>
+              <button id="faster" class="small-btn">Más rápido</button>
+              <button id="slower" class="small-btn">Más lento</button>
+            </div>
+
+            <p style="font-size:.95rem;margin-top:8px;color:#2b6b45">Consejo: la energía eólica funciona mejor en lugares con viento constante. Las turbinas modernas son más silenciosas y eficientes que antes.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Panel lateral con resumen -->
+      <aside class="card" style="height:fit-content;">
+        <h3>Resumen rápido</h3>
+        <p class="small">Las fuentes renovables ayudan a reducir gases de efecto invernadero y la dependencia de combustibles fósiles. Son una pieza clave para un futuro sostenible.</p>
+        <div style="margin-top:10px;">
+          <span class="badge">Buen tema para feria</span>
+        </div>
+        <hr style="border:none;border-top:1px solid #eef7ee;margin:12px 0;">
+        <h4>Ideas de visual</h4>
+        <ul>
+          <li>Maqueta de molino eólico con papel.</li>
+          <li>Panel solar mini con LED que se enciende.</li>
+          <li>Gráfico que compare consumo antes/después en casa.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- -------------------- CONSEJOS EN DETALLE -------------------- -->
+    <section id="consejos" class="card">
+      <h2>Consejos prácticos — en casa y la escuela</h2>
+      <div class="grid-4">
+        <div class="tip">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/1046784.png" alt="Apagar luces">
+          <strong>Apagar luces</strong>
+          <p class="small">Apaga las luces al salir de una habitación. Usá sensores o interruptores sencillos si es posible.</p>
+        </div>
+
+        <div class="tip">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/2910768.png" alt="Desenchufar">
+          <strong>Desenchufar</strong>
+          <p class="small">Desenchufá cargadores y electrodomésticos que no uses: consumen "vampiro".</p>
+        </div>
+
+        <div class="tip">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/1048953.png" alt="Luz natural">
+          <strong>Luz natural</strong>
+          <p class="small">Abrí cortinas en el día y ubica áreas de estudio cerca de ventanas.</p>
+        </div>
+
+        <div class="tip">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/432440.png" alt="LED">
+          <strong>Bombillas LED</strong>
+          <p class="small">Las LED consumen menos y duran más que las incandescentes.</p>
+        </div>
+
+        <div class="tip">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/2914334.png" alt="Modo ahorro">
+          <strong>Modo de ahorro en electrónica</strong>
+          <p class="small">Usá modos de ahorro en la TV, computador y consolas.</p>
+        </div>
+
+        <div class="tip">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/2913275.png" alt="Lavado">
+          <strong>Ropa y lavadora</strong>
+          <p class="small">Lavá con carga completa y usa temperaturas bajas cuando sea posible.</p>
+        </div>
+
+        <div class="tip">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/2659850.png" alt="Aislamiento">
+          <strong>Aislar la casa</strong>
+          <p class="small">Un buen aislamiento reduce la necesidad de calefacción y aire acondicionado.</p>
+        </div>
+
+        <div class="tip">
+          <img src="./Uso Responsable de la Energía — Proyecto Escolar_files/2099177.png" alt="Termostato">
+          <strong>Termostatos inteligentes</strong>
+          <p class="small">Programá la temperatura para ahorrar energía cuando no haya gente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------- QUIZ Y CONTADOR -------------------- -->
+    <section id="quiz" class="card">
+      <h2>Mini-quiz y contador interactivo</h2>
+      <div class="row">
+        <div class="quiz">
+          <p class="small">Pon a prueba tus conocimientos. Elegí la respuesta y recibe retroalimentación inmediata.</p>
+          <div id="questionArea" style="margin-top:8px;">
+            <!-- pregunta dinámica -->
+            <h3 id="qTitle">¿Qué tipo de energía proviene del sol?</h3>
+            <div>
+              <button class="answer-btn" data-correct="true" onclick="answerClick(event)">Energía solar</button>
+              <button class="answer-btn" data-correct="false" onclick="answerClick(event)">Energía hidráulica</button>
+              <button class="answer-btn" data-correct="false" onclick="answerClick(event)">Combustible fósil</button>
+              <button class="answer-btn" data-correct="false" onclick="answerClick(event)">Nuclear</button>
+            </div>
+            <p id="feedback" style="margin-top:8px;font-weight:700;"></p>
+          </div>
+
+          <div style="margin-top:14px;">
+            <button onclick="nextQuestion()" class="small-btn">Siguiente pregunta</button>
+            <button onclick="resetQuiz()" class="small-btn" style="background:#f0f0f0;color:#1b5f3b;border:1px solid #e6efe8">Reiniciar</button>
+          </div>
+        </div>
+
+        <div class="counter card">
+          <h3>Contador de energía ahorrada</h3>
+          <p class="small">Simula acciones y mira cuánto "kWh" ahorrás en este juego para tu presentación.</p>
+          <div style="margin:12px 0;">
+            <div class="value" id="energyValue">0</div>
+            <div style="font-size:.95rem;color:#275c3a;">kWh ahorrados</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+            <button class="small-btn" onclick="addEnergy(5)">Apagar luz ( +5 kWh )</button>
+            <button class="small-btn" onclick="addEnergy(12)">Usar LED ( +12 kWh )</button>
+            <button class="small-btn" onclick="addEnergy(30)">Aislar habitación ( +30 kWh )</button>
+            <button class="small-btn" onclick="setEnergy(0)" style="background:#f44336;">Reiniciar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------- PROYECTOS ESCOLARES Y ACTIVIDADES -------------------- -->
+    <section id="proyectos" class="card">
+      <h2>Proyectos, actividades y recursos para exponer</h2>
+      <p class="small">Ideas prácticas para llevar al aula o a la feria de ciencias.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px;">
+        <div style="padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff,#f9fff9);">
+          <h3>Maqueta: molino eólico</h3>
+          <p class="small">Construí un molino con cartón y un motorcito pequeño que encienda un LED: muestra cómo la energía del viento se convierte en electricidad.</p>
+          <ul>
+            <li>Materiales: cartón, palas, motor DC, LED, pilas.</li>
+            <li>Explicá: conversión energía mecánica → eléctrica.</li>
+          </ul>
+        </div>
+
+        <div style="padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff,#f9fff9);">
+          <h3>Experimento: panel solar casero</h3>
+          <p class="small">Medí cómo la inclinación y la sombra afectan la energía que produce un pequeño panel.</p>
+          <ul>
+            <li>Compará distintas horas del día y en interiores con luz artificial.</li>
+          </ul>
+        </div>
+
+        <div style="padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff,#f9fff9);">
+          <h3>Infografía: consumo en casa</h3>
+          <p class="small">Recopilá datos de la casa (horas de uso de TV, plancha, etc.) y mostralos en una tabla o gráfico sencillo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------- FAQ Acordeón -------------------- -->
+    <section class="card">
+      <h2>Preguntas frecuentes</h2>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFAQ(this)">
+          ¿Qué diferencia hay entre renovable y no renovable?
+          <span>+</span>
+        </button>
+        <div class="faq-body">Las renovables provienen de fuentes como sol, viento o agua que no se agotan en el día a día. Las no renovables (petróleo, gas, carbón) sí se agotan y generan más contaminación.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFAQ(this)">
+          ¿Por qué cambiar a LED?
+          <span>+</span>
+        </button>
+        <div class="faq-body">Las LED convierten mucha más energía en luz y menos en calor, consumen menos y duran más tiempo.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFAQ(this)">
+          ¿Cómo medir cuánta energía ahorro?
+          <span>+</span>
+        </button>
+        <div class="faq-body">Podés usar lecturas del medidor eléctrico antes y después de aplicar cambios o usar medidores de enchufe para aparatos concretos.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div style="max-width:1100px;margin:0 auto;padding:8px 18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div>Trabajo escolar — <strong>Pedro Traverso</strong> — Curso: 4°NAT ______</div>
+        <div style="opacity:.9">¡Presentación lista! Podés personalizar textos e imágenes para tu entrega.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- -------------------- SCRIPTS -------------------- -->
+  <script>
+    /* ---------- TURBINA EÓLICA: control de animación CSS ---------- */
+    (function(){
+      const turbine = document.getElementById('turbine');
+      const bladeImg = document.getElementById('bladeImg');
+      const toggleBtn = document.getElementById('toggleSpin');
+      const faster = document.getElementById('faster');
+      const slower = document.getElementById('slower');
+
+      // velocidad en segundos (duración de una rotación). Menor = más rápido.
+      let speed = 1.6;
+      let spinning = false;
+
+      function applySpeed(){
+        bladeImg.style.animationDuration = speed + 's';
+      }
+
+      function setSpinning(on){
+        spinning = on;
+        if(on){
+          turbine.classList.add('spinning');
+          toggleBtn.textContent = 'Apagar';
+        } else {
+          turbine.classList.remove('spinning');
+          toggleBtn.textContent = 'Encender';
+        }
+      }
+
+      // Iniciar
+      applySpeed();
+      turbine.addEventListener('click', ()=> setSpinning(!spinning));
+      toggleBtn.addEventListener('click', ()=> setSpinning(!spinning));
+      faster.addEventListener('click', ()=> {
+        speed = Math.max(0.2, speed - 0.4); applySpeed();
+      });
+      slower.addEventListener('click', ()=> {
+        speed = Math.min(6, speed + 0.6); applySpeed();
+      });
+    })();
+
+    /* ---------- QUIZ: preguntas simples ---------- */
+    const quizData = [
+      {q:'¿Qué tipo de energía proviene del sol?', opts:['Energía solar','Energía hidráulica','Combustible fósil','Nuclear'], a:0},
+      {q:'¿Cuál es una acción para ahorrar energía en la casa?', opts:['Dejar las ventanas siempre cerradas','Apagar las luces que no se usan','Aumentar la temperatura sin razón','Usar más aparatos'], a:1},
+      {q:'Una ventaja de la energía renovable es:', opts:['Agotar recursos','Generar más gases de efecto invernadero','Reducir contaminación','Ser siempre más barata'], a:2}
+    ];
+    let qIndex = 0;
+    function loadQuestion(){
+      const q = quizData[qIndex];
+      document.getElementById('qTitle').textContent = q.q;
+      const btns = document.querySelectorAll('#questionArea .answer-btn');
+      btns.forEach((b,i)=> {
+        b.textContent = q.opts[i];
+        b.dataset.correct = (i === q.a) ? 'true' : 'false';
+      });
+      document.getElementById('feedback').textContent = '';
+    }
+    function answerClick(e){
+      const correct = e.currentTarget.dataset.correct === 'true';
+      const fb = document.getElementById('feedback');
+      if(correct){
+        fb.textContent = '¡Correcto! ✅';
+        fb.style.color = '#0b6f3b';
+      } else {
+        fb.textContent = 'No es correcto. ❌ Intentá la siguiente.';
+        fb.style.color = '#b02a2a';
+      }
+    }
+    function nextQuestion(){
+      qIndex = (qIndex + 1) % quizData.length;
+      loadQuestion();
+    }
+    function resetQuiz(){ qIndex = 0; loadQuestion(); }
+    loadQuestion();
+
+    /* ---------- CONTADOR: sumar energía (simulación) ---------- */
+    let energy = 0;
+    function addEnergy(amount){
+      energy += amount;
+      updateEnergy();
+    }
+    function setEnergy(val){
+      energy = Number(val) || 0;
+      updateEnergy();
+    }
+    function updateEnergy(){
+      document.getElementById('energyValue').textContent = energy;
+    }
+
+    /* ---------- FAQ acordeón ---------- */
+    function toggleFAQ(btn){
+      const body = btn.nextElementSibling;
+      const isOpen = body.style.display === 'block';
+      if(isOpen){ body.style.display = 'none'; btn.querySelector('span').textContent = '+'; }
+      else { body.style.display = 'block'; btn.querySelector('span').textContent = '−'; }
+    }
+
+    /* ---------- Accesibilidad: enlace con hash se desplaza suavemente ---------- */
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+  </script>
+
+
+</body></html>
